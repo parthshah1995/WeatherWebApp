@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Weather APP</title>
+</head>
+<body>
+	<div sec:authorize="hasRole('ROLE_USER')">
+		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+		<p th:text="hello +${user.userName}" />
+		<form th:action="@{/loadWeather}" method="post"
+			th:object="${weatherData}">
+			<table>
+				<tr>
+					<td th:inline="text">Location:</td>
+					<td><input type="text" th:field="*{location}" /></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Look Wather"></td>
+				</tr>
+			</table>
+		</form>
+
+		<form th:action="@{/saveWeather}" method="post">
+			<table th:if="${{weatherDetail.location!=null}}">
+				<tr>
+					<td>Location:</td>
+					<td th:text="${{weatherDetail.location}}"></td>
+				</tr>
+				<tr>
+					<td>Temp:</td>
+					<td th:text="${{weatherDetail.temp}}"></td>
+				</tr>
+				<tr>
+					<td>Desc:</td>
+					<td th:text="${{weatherDetail.description}}"></td>
+				</tr>
+				<tr>
+					<td>Icon:</td>
+					<td><img th:src="${{weatherDetail.weather_Icon}}"></td>
+					<td th:text="${{weatherDetail.weather_Icon}}"></td>
+				</tr>
+				<tr>
+					<td>Sunrise:</td>
+					<td th:text="${{weatherDetail.sunrisetime}}"></td>
+				</tr>
+				<tr>
+					<td>Sunset:</td>
+					<td th:text="${{weatherDetail.sunsettime}}"></td>
+				</tr>
+				<tr>
+					<td><button type="submit" th:name="location" id="location"
+							th:field="*{weatherDetail.location}"
+							th:value="${weatherDetail.location}">Save For Future</button></td>
+				</tr>
+			</table>
+		</form>
+
+
+		<div th:unless="${#lists.isEmpty(weatherDataList)}">
+			<table th:each="weatherData:${weatherDataList}">
+				<tr>
+					<td>Location:</td>
+					<td th:text="${{weatherData.location}}"></td>
+				</tr>
+				<tr>
+					<td>Temp:</td>
+					<td th:text="${{weatherData.temp}}"></td>
+				</tr>
+				<tr>
+					<td>Desc:</td>
+					<td th:text="${{weatherData.description}}"></td>
+				</tr>
+				<tr>
+					<td>Icon:</td>
+					<td><img th:src="${{weatherData.weather_Icon}}"></td>
+				</tr>
+				<tr>
+					<td>Sunrise:</td>
+					<td th:text="${{weatherData.sunrisetime}}"></td>
+				</tr>
+				<tr>
+					<td>Sunset:</td>
+					<td th:text="${{weatherData.sunsettime}}"></td>
+				</tr>
+			</table>
+		</div>
+
+
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sing out">
+		</form>
+	</div>
+</body>
+</html>

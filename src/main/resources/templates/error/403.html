@@ -6,8 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-	Test Page
+	<h1 th:text="${message}">Error Message</h1>
+
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sing out">
 	</form>
