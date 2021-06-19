@@ -27,17 +27,22 @@
 				<td>Username:</td>
 				<td><input type="text" class="form-control" required="required"
 					th:field="*{userName}" /></td>
-				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></td>
+				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+					class="error">UserName Must Required!</td>
 			</tr>
 			<tr>
 				<td>Password:</td>
 				<td><input type="password" class="form-control"
 					required="required" th:field="*{password}" /></td>
+				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></td>
 			</tr>
 			<tr>
 				<td>Confirm Password:</td>
 				<td><input type="password" class="form-control"
 					required="required" th:field="*{confirmPassword}" /></td>
+				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></td>
+			</tr>
+			<tr>
 				<td><button type="submit">Submit</button></td>
 			</tr>
 		</table>

@@ -72,4 +72,11 @@ public class WeatherDataForm {
 		this.weather_Icon = weather_Icon;
 	}
 
+	@Override
+	public String toString() {
+		return "WeatherDataForm [location=" + location + ", temp=" + temp + ", description=" + description
+				+ ", weather_Icon=" + weather_Icon + ", sunrisetime=" + sunrisetime + ", sunsettime=" + sunsettime
+				+ "]";
+	}
+
 }

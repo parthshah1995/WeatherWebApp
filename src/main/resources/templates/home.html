@@ -4,18 +4,30 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="ISO-8859-1">
+<style>
+.error {
+	color: red;
+	font-style: italic;
+}
+</style>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <title>Weather APP</title>
 </head>
 <body>
 	<div sec:authorize="hasRole('ROLE_USER')">
 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 		<p th:text="hello +${user.userName}" />
+		<p th:text="${count}">
 		<form th:action="@{/loadWeather}" method="post"
 			th:object="${weatherData}">
 			<table>
 				<tr>
+					<td><p th:if="${locationNotFound}" class="error">Entered
+							City Not Found!</p></td>
 					<td th:inline="text">Location:</td>
-					<td><input type="text" th:field="*{location}" /></td>
+					<td><input type="text" th:field="*{location}"
+						required="required" /></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Look Wather"></td>
@@ -87,11 +99,18 @@
 				</tr>
 			</table>
 		</div>
-
+		<button onClick="updateWeather();" id="myButtonId">dd</button>
 
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sing out">
 		</form>
 	</div>
+
+	<script type="text/javascript">
+            function updateWeather(){           
+                location.reload();
+            }
+            setInterval(function () {document.getElementById("myButtonId").click();}, 10000);
+        </script>
 </body>
 </html>
