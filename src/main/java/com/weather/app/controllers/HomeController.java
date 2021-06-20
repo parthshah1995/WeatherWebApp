@@ -71,7 +71,7 @@ public class HomeController {
 		return "registration";
 	}
 
-	@RequestMapping(value = { "/home", "/loadWeather", "/saveWeather" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/home", "/loadWeather", "/saveWeather" }, method = RequestMethod.GET)
 	public String getHomePage(UserAccount userAccount, HttpServletRequest httpServletRequest, Model model,
 			Principal principal) {
 		userAccount = new UserAccount();

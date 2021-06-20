@@ -1,17 +1,37 @@
 @charset "ISO-8859-1";
 
+.header {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	background: rgba(24, 24, 27, 0.8);
+}
+
 .bodyCss {
-	background-image:
+	/*background-image:
 		url("https://images.unsplash.com/photo-1621274403997-37aace184f49?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1");
+	*/
 	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: scroll;
 	height: 100vh;
 }
 
+.head-icon {
+	display: flex;
+	justify-content: flex-end;
+	padding-top: 2em;
+	padding-right: 2em;
+	padding-bottom: 2em;
+	float: right;
+}
+
 .searchLocation {
-	margin-top: 8em !important;
-	background: rgba(24, 24, 27, 0.8);
+	background-image:
+		url("https://images.theconversation.com/files/232705/original/file-20180820-30593-1nxanpj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1356&h=668&fit=crop");
+	/*margin-top: 8em !important;
+	/*background: rgba(24, 24, 27, 0.8);*/
+	background-repeat: no-repeat;
+	background-size: cover;
 	padding: 25px;
 	bottom: 0;
 	display: flex;
@@ -25,20 +45,20 @@
 	max-height: 30em;
 	margin-left: 0 !important;
 	margin-right: 0 !important;
-	margin-bottom: 8em;
 	max-height: 30em;
-	background: rgba(24, 24, 27, 0.8);
+	background-size: cover;
+	/*background: rgba(24, 24, 27, 0.8);*/
 }
 
 .current-weather {
-	background: rgb(173 173 184/ 80%);
-	max-width: 25em;
+	background: rgb(109 109 112/ 80%);
+	max-width: 20em !important;
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
 	border-radius: 10px;
 	margin: 10px 0;
-	border: 1px solid #eee;
+	border: 1px solid #9a9191;
 	text-align: center;
 }
 

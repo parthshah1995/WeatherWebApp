@@ -16,8 +16,7 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
 	rel="stylesheet" />
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <!--  
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
@@ -43,35 +42,50 @@
 <title>Weather APP</title>
 </head>
 <body class="bodyCss">
-	<div class="container-fluid" sec:authorize="hasRole('ROLE_USER')">
-		<form th:action="@{/logout}" method="post" style="padding-top: 2em;">
-			<button type="submit" class="btn btn-light btn-lg"
-				style="font-size: 23px;">
-				<i class="fas fa-sign-out-alt"></i> Log out
-			</button>
-			<!-- <input type="submit" value="Sing out"> -->
-		</form>
+
+	<div class="row header">
+		<div class="col-6"
+			style="color: white; margin-top: 32px; padding-left: 2em; font-size: 26px;">Welcome
+			weather App</div>
+		<div class="col-6">
+			<div class="head-icon">
+				<form th:action="@{/logout}" method="post">
+					<button type="submit" class="btn btn-light btn-sm"
+						style="font-size: 23px;">
+						<i class="fas fa-sign-out-alt"></i> Log out
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="" sec:authorize="hasRole('ROLE_USER')">
+
 		<div class="row">
 			<!-- <h1 th:inline="text">Hello
 				[[${#httpServletRequest.remoteUser}]]!</h1>
 			<p th:text="hello +${user.userName}" />
 			<p th:text="${count}"> -->
 		</div>
+
+
 		<div class="row searchLocation">
-			<h2 class="col-12" style="text-align: center; font-size: 30px;">Check
+			<h2 class="col-12"
+				style="text-align: center; font-size: 30px; color: #1a1a1a;">Checkout
 				Weather on your Location:</h2>
-			<form th:action="@{/loadWeather}" class="col-6" method="post"
-				th:object="${weatherData}">
-				<div class="row" style="font-size: 30px;">
+			<form th:action="@{/loadWeather}"
+				style="justify-content: center; display: flex; margin-bottom: 3em;"
+				class="col-12" method="post" th:object="${weatherData}">
+				<div class="row" style="font-size: 15px;">
 					<div class="col-12">
 						<p th:if="${locationNotFound}" class="error"
 							th:text="'Sorry Entered City Not Found! PLease Provide valid city Name!'"></p>
 					</div>
 					<div class="col-12">
-						<div class="input-group" style="height: 2em;">
+						<div class="input-group">
 							<div class="form-outline">
 								<input type="search" autocomplete="off"
-									style="color: #ffff; width: 16em; font-size: 20px; height: 3.3em"
+									style="color: #ffff; width: 30em; background: #998b8b9e;"
 									id="form1" th:field="*{location}" required="required"
 									class="form-control" /> <label class="form-label"
 									style="color: #ffff;" for="form1">Search</label>
@@ -80,12 +94,12 @@
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
-						<!-- <input type="text" th:field="*{location}" required="required" /> -->
 					</div>
 				</div>
 			</form>
-			<form class="col-6" th:action="@{/saveWeather}"
-				style="font-size: 25px;" method="post">
+			<form class="row" th:action="@{/saveWeather}"
+				style="font-size: 15px; display: flex; justify-content: center;"
+				method="post">
 				<div>
 					<p th:if="${LocationExist}" class="error"
 						th:text="${weatherDetail.location} +' Already Exist'"></p>
@@ -99,10 +113,10 @@
 								th:src="${{weatherDetail.weather_Icon}}">
 						</div>
 						<div>
-							Current Temperature : <span th:text="${{weatherDetail.temp}}"></span>
+							Temperature : <span th:text="${{weatherDetail.temp}}"></span>
 						</div>
 						<div>
-							Current Weather Condition : <span
+							Weather Condition : <span
 								th:text="${{weatherDetail.description}}"></span>
 						</div>
 						<div>
@@ -116,7 +130,7 @@
 							</div>
 						</div>
 					</div>
-					<div>
+					<div style="padding-top: 1em">
 						<button type="submit" class="btn btn-light btn-lg btn-block"
 							th:name="location" id="location"
 							th:field="*{weatherDetail.location}"

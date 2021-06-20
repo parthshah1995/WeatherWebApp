@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.exceptionHandling().accessDeniedPage("/403");
-		http.authorizeRequests().antMatchers("/", "/login", "/registration").permitAll()
+		http.authorizeRequests().antMatchers("/login", "/registration").permitAll()
 				.antMatchers("/resources/**", "/static/**").permitAll().antMatchers("/styles/**").permitAll()
 				.antMatchers("/assets/**").permitAll().antMatchers("/home").hasAnyRole("USER").anyRequest()
 				.authenticated().and().formLogin().failureUrl("/login?error").defaultSuccessUrl("/home")
@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-//		auth.inMemoryAuthentication().withUser("user").password(new BCryptPasswordEncoder().encode("user")).roles("USER");
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder)
 				.usersByUsernameQuery("select username,password,1 from public.user_profile where username=?")
 				.authoritiesByUsernameQuery(
