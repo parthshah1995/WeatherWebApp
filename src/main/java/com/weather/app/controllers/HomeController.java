@@ -198,7 +198,7 @@ public class HomeController {
 			UserAccount userAccount = new UserAccount();
 			userAccount.setUserName(userForm.getUserName());
 			userAccount.setPassword(encodePassword(userForm.getPassword()));
-			userDao.createUserAccount(userAccount);
+			userAccount = userDao.createUserAccount(userAccount);
 			autoLogin(userAccount);
 			model.addAttribute("user", userAccount);
 			return "redirect:/home";

@@ -26,15 +26,16 @@ public class RegistrationFormValidation implements Validator {
 	public void validate(Object target, Errors errors) {
 		Registrationform webForm = (Registrationform) target;
 		UserAccount userAccount = userDao.getUserByUserName(webForm.getUserName());
-		System.out.println(userAccount);
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		if (webForm.getPassword().length() < 8 || webForm.getPassword().length() > 32) {
 			errors.rejectValue("password", "Size.webForm.password");
 		}
 		if (!webForm.getPassword().equals(webForm.getConfirmPassword()))
 			errors.rejectValue("confirmPassword", "Diff.webForm.confimPassword");
-		if(userAccount.getUserName()!=null)
-			errors.rejectValue("userName", "Exist.webForm.userName");
+		if (userAccount != null) {
+			if (userAccount.getUserName() != null)
+				errors.rejectValue("userName", "Exist.webForm.userName");
+		}
 	}
 
 }
