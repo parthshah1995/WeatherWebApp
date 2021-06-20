@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
 	<!-- CSS only -->
@@ -63,7 +64,7 @@
 							<input type="text" name="username" class="form-control" placeholder="User Name"
 								required="required" autofocus="autofocus" autocomplete="none" />
 						</div>
-						<div>
+						<div style="padding-bottom: 1em;">
 							<input type="password" name="password" id="inputPassword" class="form-control"
 								placeholder="Password" required="required">
 						</div>
