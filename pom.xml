@@ -10,7 +10,8 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.weather.app</groupId>
-	<artifactId>WeatherApp</artifactId>
+	<artifactId>WeatherWebApp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>WeatherWebApp</name>
 	<description>Demo project for Spring Boot</description>
@@ -84,6 +85,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<finalName>weatherApp</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
