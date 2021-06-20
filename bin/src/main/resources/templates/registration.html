@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+<meta name="author" content="Grayrids">
+<title>Account Registration</title>
+<style>
+.error {
+	color: red;
+	font-style: italic;
+}
+</style>
+</head>
+<body>
+	<form action="#" th:action="@{/registration}"
+		th:object="${userAccount}" method="post">
+		<p th:if="${UserExist}" class="error">User Already Exist</p>
+		<p th:if="${PasswordShort}" class="error">Password is not long
+			enough!</p>
+		<p th:if="${PasswordNoMatch}" class="error">Passwords does not
+			match!</p>
+		<table>
+			<tr class="form-group">
+				<td>Username:</td>
+				<td><input type="text" class="form-control" required="required"
+					th:field="*{userName}" /></td>
+				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+					class="error">UserName Must Required!</td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" class="form-control"
+					required="required" th:field="*{password}" /></td>
+				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></td>
+			</tr>
+			<tr>
+				<td>Confirm Password:</td>
+				<td><input type="password" class="form-control"
+					required="required" th:field="*{confirmPassword}" /></td>
+				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></td>
+			</tr>
+			<tr>
+				<td><button type="submit">Submit</button></td>
+			</tr>
+		</table>
+	</form>
+	<div>
+		<a href="./login">Already have an Account?</a>
+	</div>
+
+</body>
+</html>

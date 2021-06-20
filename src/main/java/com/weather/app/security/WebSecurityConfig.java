@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/login", "/registration").permitAll()
 				.antMatchers("/resources/**", "/static/**").permitAll().antMatchers("/styles/**").permitAll()
 				.antMatchers("/assets/**").permitAll().antMatchers("/home").hasAnyRole("USER").anyRequest()
-				.authenticated().and().formLogin().failureUrl("/login?error").defaultSuccessUrl("/home")
+				.authenticated().and().formLogin().failureUrl("/login-error").defaultSuccessUrl("/home")
 				.loginPage("/login").permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?Logout")
 				.permitAll().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll();

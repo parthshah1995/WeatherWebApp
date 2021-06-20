@@ -251,4 +251,10 @@ public class HomeController {
 
 		return weatherDataForm;
 	}
+
+	@GetMapping("/login-error")
+	public String login(HttpServletRequest request, Model model) {
+		model.addAttribute("errorMessage", true);
+		return "login";
+	}
 }

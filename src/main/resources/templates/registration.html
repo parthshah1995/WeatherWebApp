@@ -1,22 +1,44 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
-<meta charset="ISO-8859-1">
-<meta charset="utf-8">
-<meta name="author" content="Grayrids">
-<title>Account Registration</title>
-<style>
-.error {
-	color: red;
-	font-style: italic;
-}
-</style>
+	<meta charset="ISO-8859-1">
+	<meta charset="utf-8">
+	<meta name="author" content="Grayrids">
+	<title>Account Registration</title>
+	<style>
+		.error {
+			color: red;
+			font-style: italic;
+		}
+
+		#formContent {
+			-webkit-border-radius: 10px 10px 10px 10px;
+			border-radius: 10px 10px 10px 10px;
+			background: #fff;
+			padding: 30px;
+			width: 100%;
+			height: 30em;
+			max-width: 30em;
+			position: relative;
+			padding: 2em;
+			-webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+			box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+			text-align: center;
+		}
+	</style>
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
 </head>
+
 <body>
-	<form action="#" th:action="@{/registration}"
-		th:object="${userAccount}" method="post">
+	<!--<form action="#" th:action="@{/registration}" th:object="${userAccount}" method="post">
 		<p th:if="${UserExist}" class="error">User Already Exist</p>
 		<p th:if="${PasswordShort}" class="error">Password is not long
 			enough!</p>
@@ -25,8 +47,7 @@
 		<table>
 			<tr class="form-group">
 				<td>Username:</td>
-				<td><input type="text" class="form-control" required="required"
-					th:field="*{userName}" /></td>
+				<td><input type="text" class="form-control" required="required" th:field="*{userName}" /></td>
 				<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
 					class="error">UserName Must Required!</td>
 			</tr>
@@ -49,7 +70,47 @@
 	</form>
 	<div>
 		<a href="./login">Already have an Account?</a>
-	</div>
+	</div> -->
+
+	<section class="min-vh-100">
+		<div class="row">
+			<div class=" h-100 d-flex justify-content-center align-items-center" style="min-height: 100%;padding: 6em;">
+				<div id="formContent" class="text-center wrapper fadeInDown"
+					style="justify-content: center; display: flex;">
+					<form action="#" th:action="@{/registration}" th:object="${userAccount}" method="post"
+						class="form-signin">
+						<p th:if="${UserExist}" class="error">User Already Exist</p>
+						<p th:if="${PasswordShort}" class="error">Password is not long
+							enough!</p>
+						<p th:if="${PasswordNoMatch}" class="error">Passwords does not
+							match!</p>
+
+						<input type="hidden" name="_csrf" value="953647df-eefa-45ae-8003-6bd54f36e854" />
+						<h1 class="h3 mb-3 font-weight-normal">Please Help to Register your Self</h1>
+						<div style="padding-bottom: 1em;">
+							<input type="text" th:field="*{userName}" class="form-control" placeholder="User Name"
+								required="required" autofocus="autofocus" autocomplete="none" />
+						</div>
+						<div style="padding-bottom: 1em;">
+							<input type="password" th:field="*{password}" id="inputPassword" class="form-control"
+								placeholder="Password" required="required">
+						</div>
+						<div>
+							<input type="password" th:field="*{confirmPassword}" id="inputPassword" class="form-control"
+								placeholder="Confirm Password" required="required">
+						</div>
+						<div class="mb-3">
+							<a href="./login">Already have an Account?</a>
+						</div>
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+							in</button>
+					</form>
+
+				</div>
+				</ </div>
+	</section>
+
 
 </body>
+
 </html>

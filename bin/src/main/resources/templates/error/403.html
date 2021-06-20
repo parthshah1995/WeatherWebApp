@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${message}">Error Message</h1>
+
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sing out">
+	</form>
+</body>
+</html>
