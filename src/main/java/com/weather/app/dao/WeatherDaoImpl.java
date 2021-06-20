@@ -16,9 +16,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.weather.app.dao.daoInterfaces.WeatherDao;
-import com.weather.app.dao.mappers.UserAccountMapper;
 import com.weather.app.dao.mappers.WeatherDataMapper;
-import com.weather.app.models.UserAccount;
 import com.weather.app.models.WeatherInfo;
 
 @Repository
