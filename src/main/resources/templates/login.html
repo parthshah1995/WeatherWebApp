@@ -1,6 +1,8 @@
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <!-- CSS only -->
 <link
@@ -32,7 +34,7 @@
 	</form> -->
 	<div class="text-center"
 		style="justify-content: center; display: flex;">
-		<form action="/login" class="form-signin" method="post">
+		<form th:action="@{/login}" class="form-signin" method="post">
 			<input type="hidden" name="_csrf"
 				value="953647df-eefa-45ae-8003-6bd54f36e854" />
 			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
