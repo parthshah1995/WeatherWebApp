@@ -1,7 +1,6 @@
 package com.weather.app.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import java.security.Principal;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +27,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.validation.ObjectError;
 
@@ -68,8 +65,6 @@ public class HomeController {
 	@Autowired
 	private WeatherDataValidation weatherDataValidation;
 
-	private int count = 1;
-
 	@GetMapping("/registration")
 	public String registration(Registrationform userForm, BindingResult bindingResult, Model model) {
 		model.addAttribute("userAccount", userForm);
@@ -83,32 +78,31 @@ public class HomeController {
 		userAccount.setUserName(principal.getName());
 		WeatherDataForm weatherDataForm = new WeatherDataForm();
 		List<WeatherDataForm> weatherDataForms = new ArrayList<>();
-		System.out.println("Initial:" + weatherDataForms);
 		weatherDataForms = displayAllSavedWeatherLocationsData(principal.getName(), true);
-		System.out.println(weatherDataForms.toString());
+		if (currentWeatherData != null) {
+			weatherDataForm = currentWeatherData;
+			model.addAttribute("weatherDetail", weatherDataForm);
+			weatherDataForm = new WeatherDataForm();
+		} else
+			model.addAttribute("weatherDetail", weatherDataForm);
+
 		model.addAttribute("weatherDataList", weatherDataForms);
-		model.addAttribute("weatherDetail", weatherDataForm);
 		model.addAttribute("weatherData", weatherDataForm);
 		model.addAttribute("user", userAccount);
-		model.addAttribute("count", count);
-
-		count++;
 		return "home";
 	}
 
 	@RequestMapping(value = "/loadWeather", method = RequestMethod.POST)
 	public String fetchWeather(WeatherDataForm weatherDataForm, final BindingResult result, Model model,
 			Principal principal) {
-		weatherDataValidation.validate(weatherDataForm, result);
+
 		try {
 			weatherDataForm = retriveWeatherData(weatherDataForm.getLocation());
 			currentWeatherData = weatherDataForm;
 		} catch (Exception e) {
-			// TODO: handle exception
 			model.addAttribute("locationNotFound", "locationNotFound");
 			if (currentWeatherData != null) {
 				weatherDataForm = currentWeatherData;
-				
 			} else {
 				weatherDataForm = new WeatherDataForm();
 			}
@@ -130,23 +124,38 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/saveWeather", method = RequestMethod.POST)
-	public String saveWeather(WeatherDataForm weatherDataForm, Model model, Principal principal) {
+	public String saveWeather(WeatherDataForm weatherDataForm, Model model, final BindingResult result,
+			Principal principal) {
+		weatherDataForm.setUserName(principal.getName());
+		weatherDataValidation.validate(weatherDataForm, result);
+		if (result.hasErrors()) {
+			List<ObjectError> errors = result.getAllErrors();
+			for (ObjectError e : errors) {
+				if (e.getCode().equals("Exist Location"))
+					model.addAttribute("LocationExist", true);
+				weatherDataForm = currentWeatherData;
+				List<WeatherDataForm> weatherDataForms = new ArrayList<>();
+				if (weatherDataFormList.isEmpty()) {
+					weatherDataForms = displayAllSavedWeatherLocationsData(principal.getName(), true);
+				} else
+					weatherDataForms = displayAllSavedWeatherLocationsData(principal.getName(), false);
 
-		WeatherInfo weatherInfo = new WeatherInfo();
-		weatherInfo.setLocation(weatherDataForm.getLocation());
-		weatherInfo.setUsername(principal.getName());
-		weatherDao.addWeatherInfo(weatherInfo);
+				model.addAttribute("weatherDataList", weatherDataForms);
+				model.addAttribute("weatherDetail", weatherDataForm);
+				UserAccount userAccount = new UserAccount();
+				userAccount.setUserName(principal.getName());
+				weatherDataForm = new WeatherDataForm();
+				model.addAttribute("weatherData", weatherDataForm);
+				model.addAttribute("user", userAccount);
+				return "home";
+			}
+		} else {
+			WeatherInfo weatherInfo = new WeatherInfo();
+			weatherInfo.setLocation(weatherDataForm.getLocation());
+			weatherInfo.setUsername(principal.getName());
+			weatherDao.addWeatherInfo(weatherInfo);
+		}
 
-		List<WeatherDataForm> weatherDataForms = displayAllSavedWeatherLocationsData(principal.getName(), true);
-
-		weatherDataForm = currentWeatherData;
-		model.addAttribute("weatherDetail", weatherDataForm);
-		UserAccount userAccount = new UserAccount();
-
-		userAccount.setUserName(principal.getName());
-		weatherDataForm = new WeatherDataForm();
-		model.addAttribute("weatherData", weatherDataForm);
-		model.addAttribute("user", userAccount);
 		return "redirect:/home";
 	}
 
@@ -161,12 +170,10 @@ public class HomeController {
 			}
 			weatherLocationList = new ArrayList<>(new LinkedHashSet<>(weatherLocationList));
 			for (String weatherInfoLocation : weatherLocationList) {
-//				System.out.println(weatherInfoLocation);
 				WeatherDataForm weatherDataForm = retriveWeatherData(weatherInfoLocation);
 				weatherDataFormList.add(weatherDataForm);
 			}
 		}
-		System.out.println("weatherINfo:" + weatherDataFormList);
 		return weatherDataFormList;
 	}
 
@@ -230,14 +237,12 @@ public class HomeController {
 		@SuppressWarnings("deprecation")
 		JsonObject jsonObject = new JsonParser().parse(openWeatherData).getAsJsonObject();
 		JsonArray weatherArrayData = ((JsonArray) jsonObject.get("weather"));
-//		System.out.println(openWeatherData);
-//		System.out.println(jsonObject);
-		weatherDataForm.setLocation(location);
+		weatherDataForm.setLocation(Character.toUpperCase(location.charAt(0)) + location.substring(1));
 		Date sunriseTime = new Date(Long.parseLong(jsonObject.getAsJsonObject("sys").get("sunrise").toString()) * 1000);
 		Date sunsetTime = new Date(Long.parseLong(jsonObject.getAsJsonObject("sys").get("sunset").toString()) * 1000);
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
 		weatherDataForm.setTemp(jsonObject.getAsJsonObject("main").get("temp").toString());
-		weatherDataForm.setDescription((weatherArrayData.get(0)).getAsJsonObject().get("description").toString());
+		weatherDataForm.setDescription((weatherArrayData.get(0)).getAsJsonObject().get("description").getAsString());
 		String iconPath = "http://openweathermap.org/img/wn/"
 				+ (weatherArrayData.get(0)).getAsJsonObject().get("icon").getAsString() + "@2x.png";
 		weatherDataForm.setWeather_Icon(iconPath);

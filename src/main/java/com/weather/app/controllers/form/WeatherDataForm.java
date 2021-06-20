@@ -7,6 +7,7 @@ public class WeatherDataForm {
 	String weather_Icon;
 	String sunrisetime;
 	String sunsettime;
+	String userName;
 
 	public WeatherDataForm() {
 		super();
@@ -14,7 +15,7 @@ public class WeatherDataForm {
 	}
 
 	public WeatherDataForm(String location, String temp, String description, String weather_Icon, String sunrisetime,
-			String sunsettime) {
+			String sunsettime, String userName) {
 		super();
 		this.location = location;
 		this.temp = temp;
@@ -22,6 +23,15 @@ public class WeatherDataForm {
 		this.weather_Icon = weather_Icon;
 		this.sunrisetime = sunrisetime;
 		this.sunsettime = sunsettime;
+		this.userName = userName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getSunrisetime() {

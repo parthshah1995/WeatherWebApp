@@ -25,11 +25,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.exceptionHandling().accessDeniedPage("/403");
-		http.authorizeRequests().antMatchers("/", "/login", "/registration").permitAll().antMatchers("/home")
-				.hasAnyRole("USER").anyRequest().authenticated().and().formLogin().failureUrl("/login?error")
-				.defaultSuccessUrl("/home").loginPage("/login").permitAll().and().logout()
+		http.authorizeRequests().antMatchers("/", "/login", "/registration").permitAll()
+				.antMatchers("/resources/**", "/static/**").permitAll().antMatchers("/styles/**").permitAll()
+				.antMatchers("/assets/**").permitAll().antMatchers("/home").hasAnyRole("USER").anyRequest()
+				.authenticated().and().formLogin().failureUrl("/login?error").defaultSuccessUrl("/home")
+				.loginPage("/login").permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?Logout")
-				.permitAll();
+				.permitAll().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll();
+		;
 	}
 
 	@Override
