@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <link rel="stylesheet" href="./styles/style.css">
 <!-- CSS only -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+	rel="stylesheet" />
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+	rel="stylesheet" />
 <!-- MDB -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
+	rel="stylesheet" />
 
 <!--  
 <link
@@ -24,27 +31,30 @@
 	 -->
 
 <head>
-	<meta charset="ISO-8859-1">
-	<style>
-		.error {
-			color: #b50a0a;
-			font-style: italic;
-			font-size: 150%;
-		}
-	</style>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<title>Weather APP</title>
+<meta charset="ISO-8859-1">
+<style>
+.error {
+	color: #b50a0a;
+	font-style: italic;
+	font-size: 150%;
+}
+</style>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<title>Weather APP</title>
 </head>
 
 <body class="bodyCss">
 
 	<div class="row header">
-		<div class="col-6" style="color: white; margin-top: 32px; padding-left: 2em; font-size: 26px;">Welcome
+		<div class="col-6"
+			style="color: white; margin-top: 32px; padding-left: 2em; font-size: 26px;">Welcome
 			weather App</div>
 		<div class="col-6">
 			<div class="head-icon">
 				<form th:action="@{/logout}" method="post">
-					<button type="submit" class="btn btn-light btn-sm" style="font-size: 23px;">
+					<button type="submit" class="btn btn-light btn-sm"
+						style="font-size: 23px;">
 						<i class="fas fa-sign-out-alt"></i> Log out
 					</button>
 				</form>
@@ -63,23 +73,24 @@
 
 
 		<div class="row searchLocation">
-			<h2 class="col-12" style="text-align: center; font-size: 30px; color: #1a1a1a;">Checkout
+			<h2 class="col-12"
+				style="text-align: center; font-size: 30px; color: #1a1a1a;">Checkout
 				Weather on your Location:</h2>
-			<form th:action="@{/loadWeather}" style="justify-content: center; display: flex; margin-bottom: 2em;"
+			<form th:action="@{/loadWeather}"
+				style="justify-content: center; display: flex; margin-bottom: 2em;"
 				class="col-12" method="post" th:object="${weatherData}">
 				<div class="row" style="font-size: 15px;">
-					<div class="col-12">
-
-					</div>
+					<div class="col-12"></div>
 					<div class="col-12">
 						<p th:if="${locationNotFound}" class="error"
 							th:text="'Sorry Entered City Not Found! PLease Provide valid city Name!'"></p>
 						<div class="input-group">
 							<div class="form-outline">
 								<input type="search" autocomplete="off"
-									style="color: #ffff; width: 30em; background: #998b8b9e;" id="form1"
-									th:field="*{location}" required="required" class="form-control" /> <label
-									class="form-label" style="color: #ffff;" for="form1">Search</label>
+									style="color: #ffff; width: 30em; background: #998b8b9e;"
+									id="form1" th:field="*{location}" required="required"
+									class="form-control" /> <label class="form-label"
+									style="color: #ffff;" for="form1">Search</label>
 							</div>
 							<button type="submit" class="btn btn-light">
 								<i class="fa fa-search"></i>
@@ -89,15 +100,13 @@
 				</div>
 			</form>
 			<form class="row" th:action="@{/saveWeather}"
-				style="font-size: 15px; display: flex; justify-content: center;" method="post">
-				<div>
-
-				</div>
-				<div class="current-weather" th:if="${{weatherDetail.location!=null}}">
+				style="font-size: 15px; display: flex; justify-content: center;"
+				method="post">
+				<div></div>
+				<div class="current-weather"
+					th:if="${{weatherDetail.location!=null}}">
 					<div>
-						<div>
-
-						</div>
+						<div></div>
 						<div>
 							<p th:if="${LocationExist}" class="error city-error"
 								th:text="${weatherDetail.location} +' Already Exist'"></p>
@@ -108,7 +117,8 @@
 							Temperature : <span th:text="${{weatherDetail.temp}}"></span>
 						</div>
 						<div>
-							Weather Condition : <span th:text="${{weatherDetail.description}}"></span>
+							Weather Condition : <span
+								th:text="${{weatherDetail.description}}"></span>
 						</div>
 						<div>
 							<div>
@@ -122,9 +132,10 @@
 						</div>
 					</div>
 					<div style="padding-top: 1em">
-						<button type="submit" class="btn btn-light btn-lg btn-block" th:name="location" id="location"
-							th:field="*{weatherDetail.location}" th:value="${weatherDetail.location}">Save For
-							Future</button>
+						<button type="submit" class="btn btn-light btn-lg btn-block"
+							th:name="location" id="location"
+							th:field="*{weatherDetail.location}"
+							th:value="${weatherDetail.location}">Save For Future</button>
 					</div>
 				</div>
 				<!-- 
@@ -167,7 +178,8 @@
 				 -->
 			</form>
 		</div>
-		<div class="row save-weather-parent" id="saveData" th:unless="${#lists.isEmpty(weatherDataList)}">
+		<div class="row save-weather-parent" id="saveData"
+			th:unless="${#lists.isEmpty(weatherDataList)}">
 			<h2 class="col-12" style="font-size: 30px; text-align: center;">Your
 				Saved Weather Data:</h2>
 			<div class="col-3 save-weather" style="margin-bottom: 2em;"
@@ -190,11 +202,12 @@
 				</div>
 			</div>
 		</div>
-		<!-- <button onClick="updateWeather();" id="myButtonId">dd</button> -->
+		<button hidden="true" onClick="updateWeather();" id="myButtonId">dd</button>
 	</div>
 
 	<script type="text/javascript">
 		function updateWeather() {
+		alert("Page will refresh as system is updating weather DATA!");
 			location.reload();
 		}
 		setInterval(function () {document.getElementById("myButtonId").click();}, 900000);
