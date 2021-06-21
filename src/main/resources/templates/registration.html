@@ -28,6 +28,7 @@
 			text-align: center;
 		}
 	</style>
+	<link rel="stylesheet" href="./styles/style.css">
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -38,6 +39,14 @@
 </head>
 
 <body>
+	<div class="row header">
+		<div class="col-6" style="color: white; margin-top: 32px; padding-left: 2em; font-size: 26px;">Weather App
+		</div>
+		<div class="col-6">
+			<div class="head-icon">
+			</div>
+		</div>
+	</div>
 	<!--<form action="#" th:action="@{/registration}" th:object="${userAccount}" method="post">
 		<p th:if="${UserExist}" class="error">User Already Exist</p>
 		<p th:if="${PasswordShort}" class="error">Password is not long
@@ -80,16 +89,16 @@
 					<form action="#" th:action="@{/registration}" th:object="${userAccount}" method="post"
 						class="form-signin">
 						<p th:if="${UserExist}" class="error">User Already Exist</p>
-						<p th:if="${PasswordShort}" class="error">Password is not long
-							enough!</p>
+						<p th:if="${PasswordShort}" class="error">Password Must be 8 characters Long!</p>
 						<p th:if="${PasswordNoMatch}" class="error">Passwords does not
 							match!</p>
 
 						<input type="hidden" name="_csrf" value="953647df-eefa-45ae-8003-6bd54f36e854" />
 						<h1 class="h3 mb-3 font-weight-normal">Please Help to Register your Self</h1>
 						<div style="padding-bottom: 1em;">
-							<input type="text" th:field="*{userName}" class="form-control" placeholder="User Name"
-								required="required" autofocus="autofocus" autocomplete="none" />
+							<input type="text" th:field="*{userName}" data-toggle="tooltip" data-placement="top"
+								title="Tooltip on top" class="form-control" placeholder="User Name" required="required"
+								autofocus="autofocus" autocomplete="none" />
 						</div>
 						<div style="padding-bottom: 1em;">
 							<input type="password" th:field="*{password}" id="inputPassword" class="form-control"
